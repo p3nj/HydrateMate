@@ -36,13 +36,6 @@
       "fileSize" : 1415
     },
     {
-      "path" : "publisher_test_modified.py",
-      "mimeType" : "text/x-python-script",
-      "lastUpdated" : 1697102580,
-      "checksum" : "772d09afc004aa9963cc30e43f92cab3",
-      "fileSize" : 1495
-    },
-    {
       "path" : "_site.json",
       "mimeType" : "application/json",
       "lastUpdated" : 1697102451,
@@ -90,20 +83,6 @@
       "lastUpdated" : 1697103488,
       "checksum" : "504a4e8f39ee3678731405119c2f73ab",
       "fileSize" : 6827
-    },
-    {
-      "path" : "subscriber_test.py",
-      "mimeType" : "text/x-python-script",
-      "lastUpdated" : 1697104188,
-      "checksum" : "839d5d86de6d8c1665308dea61fe4f65",
-      "fileSize" : 1714
-    },
-    {
-      "path" : "publisher_test.py",
-      "mimeType" : "text/x-python-script",
-      "lastUpdated" : 1697103588,
-      "checksum" : "bbd2aadc7db34ee0eea31baea8f38d4f",
-      "fileSize" : 1594
     }
   ]
 }
