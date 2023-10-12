@@ -73,3 +73,12 @@ allow_anonymous true
 
 ## 5. Example Python Code
 Please check out the `publisher_test.py` and `subscriber_test.py` for example of using certificate to establish the conneciton.
+
+
+## Extra
+### Monitoring the Mosquitto Process
+Because we setup a log file `/var/log/mosquitto/mosquitto.log`, you can monitor the mosquitto by using the command:
+
+`tail -F /var/log/mosquitto/mosquitto.log`
+
+Have fun.
