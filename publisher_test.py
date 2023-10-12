@@ -47,12 +47,5 @@ while True:
     else:
         print("Failed to publish message.")
 
-    # Wait for 3 seconds before the next publish
-    time.sleep(3)
-
-# Stop the loop (this line will not be reached in this example)
-client.loop_stop()
-
-# Disconnect from the broker (this line will not be reached in this example)
-client.disconnect()
-
+    # Wait for 1 seconds before the next publish
+    time.sleep(1)

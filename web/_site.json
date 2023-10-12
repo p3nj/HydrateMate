@@ -15,13 +15,6 @@
       "fileSize" : 129
     },
     {
-      "path" : "certs/ca.srl",
-      "mimeType" : "application/octet-stream",
-      "lastUpdated" : 1697103457,
-      "checksum" : "9217b3778f23cecee982170015fec2c2",
-      "fileSize" : 41
-    },
-    {
       "path" : "CNAME",
       "mimeType" : "application/octet-stream",
       "lastUpdated" : 1696063007,
@@ -29,60 +22,11 @@
       "fileSize" : 21
     },
     {
-      "path" : "certs/ca.crt",
-      "mimeType" : "application/x-x509-ca-cert",
-      "lastUpdated" : 1697101618,
-      "checksum" : "748930725054b07acb4433c37d1cb17c",
-      "fileSize" : 1415
-    },
-    {
       "path" : "_site.json",
       "mimeType" : "application/json",
-      "lastUpdated" : 1697102451,
-      "checksum" : "c5e23126c4bd7e4961b1195de9708aab",
+      "lastUpdated" : 1697102307,
+      "checksum" : "e75fa18caaeb965b05035c2d66dc3a25",
       "fileSize" : 3065
-    },
-    {
-      "path" : "certs/server.crt",
-      "mimeType" : "application/x-x509-ca-cert",
-      "lastUpdated" : 1697103459,
-      "checksum" : "93e309d0930fed7108c3b6f8ee8b4cef",
-      "fileSize" : 1399
-    },
-    {
-      "path" : "certs/server.key",
-      "mimeType" : "application/octet-stream",
-      "lastUpdated" : 1697103452,
-      "checksum" : "632e712f5e12cc6545e3c8c581d331bc",
-      "fileSize" : 1704
-    },
-    {
-      "path" : "certs/ca.key",
-      "mimeType" : "application/octet-stream",
-      "lastUpdated" : 1697101600,
-      "checksum" : "e0b9b8fec60949fa3695e6beb685a68f",
-      "fileSize" : 1854
-    },
-    {
-      "path" : "certs/san.cnf",
-      "mimeType" : "application/octet-stream",
-      "lastUpdated" : 1697102272,
-      "checksum" : "05d11a155dbed10907c9d63aee420f49",
-      "fileSize" : 279
-    },
-    {
-      "path" : "certs/server.csr",
-      "mimeType" : "application/octet-stream",
-      "lastUpdated" : 1697103457,
-      "checksum" : "dbdc1ad55f9576bb1e75d98aa335ae97",
-      "fileSize" : 1070
-    },
-    {
-      "path" : "certs/certs_latest.zip",
-      "mimeType" : "application/zip",
-      "lastUpdated" : 1697103488,
-      "checksum" : "504a4e8f39ee3678731405119c2f73ab",
-      "fileSize" : 6827
     }
   ]
 }
