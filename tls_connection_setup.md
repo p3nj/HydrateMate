@@ -38,6 +38,10 @@ Firstly, backup the origional config file, incase you fucked up and cannot rever
 
 Second, create a new config file with the content below
 
+`sudo touch /etc/mosquitto/mosquitto.conf`
+
+Lastly, after create the file, use your favorite editor to paste the config below into the file.
+
 ```
 # General settings
 pid_file /var/run/mosquitto.pid
