@@ -31,10 +31,45 @@ I don't have the tutorial here, if you planned to do it good luck.
 #### Unzip the certificate
 `sudo unzip certs_latest.zip`
 
+## 3. Update Mosquitto Configuration
+Firstly, backup the origional config file, incase you fucked up and cannot revert.
 
-## 3. Restart the Mosquitto
+`sudo mv /etc/mosquitto/mosquitto.conf /etc/mosquitto/mosquitto.conf.bak`
+
+Second, create a new config file with the content below
+
+```
+# General settings
+pid_file /var/run/mosquitto.pid
+persistence true
+persistence_location /var/lib/mosquitto/
+
+# Logging
+log_dest file /var/log/mosquitto/mosquitto.log
+log_type all
+
+# Default stener
+listener 1883 localhost
+
+# Secure listener
+listener 8883
+
+cafile /etc/mosquitto/certs/ca.crt
+certfile /etc/mosquitto/certs/server.crt
+keyfile /etc/mosquitto/certs/server.key
+
+tls_version tlsv1.2
+
+# Require client certificate
+require_certificate true
+
+# Allow Anonymous
+allow_anonymous true
+```
+
+## 4. Restart the Mosquitto
 `sudo systemctl restart mosquitto.service`
 
 
-## 4. Example Python Code
+## 5. Example Python Code
 Please check out the `publisher_test.py` and `subscriber_test.py` for example of using certificate to establish the conneciton.
