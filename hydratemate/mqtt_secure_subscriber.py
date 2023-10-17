@@ -15,7 +15,7 @@ class MQTTSecureSubscriber:
         self.client.on_connect = self.on_connect
         self.private_key = None
 
-    def setup(self, ca_certs, certfile, keyfile, topic, broker_address, port=8883, custom_on_message):
+    def setup(self, ca_certs, certfile, keyfile, topic, custom_on_message, broker_address, port=8883):
         self.client.tls_set(
             ca_certs=ca_certs,
             certfile=certfile,
