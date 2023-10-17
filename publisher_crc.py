@@ -86,7 +86,7 @@ while True:
         )
     )
     # Publish the JSON-formatted message
-    result = client.publish("mate/hello", encrypted_data)
+    result = client.publish("mate/data", encrypted_data)
 
     # Check if the publish was successful
     if result.rc == mqtt.MQTT_ERR_SUCCESS:

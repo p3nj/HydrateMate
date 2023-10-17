@@ -37,7 +37,8 @@ def on_connect(client, userdata, flags, rc):
         print("Connected to MQTT broker")
     else:
         print("Connection failed with error code:", rc)
-    client.subscribe("mate/hello")  # Subscribe to the desired topic here
+    client.subscribe("mate/data")  # Subscribe to the desired topic here
+    print("Subscribed to topic.")
 
 
 def decrypt_payload(payload):

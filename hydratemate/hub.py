@@ -1,7 +1,7 @@
 import serial
 import time
 from datetime import datetime
-from hydratemate.mqtt_secure_publiher import MQTTSecureClient
+from mqtt_secure_publiher import MQTTSecureClient
 
 
 # Configuration Constants
@@ -9,7 +9,7 @@ from hydratemate.mqtt_secure_publiher import MQTTSecureClient
 SLOPE = 0.43
 DEFAULT_NOTIFICATION_INTERVAL = 5 * 60  # 5 minutes
 RESET_INTERVAL = 60  # 1 minute
-TOPIC="mate/data",
+TOPIC="mate/data"
 BROKER_ADDRESS="3.25.58.119"
 
 # State Variables

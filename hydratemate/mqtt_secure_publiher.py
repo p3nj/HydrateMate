@@ -30,6 +30,8 @@ class MQTTSecureClient:
         self.broker_address = broker_address
         self.port = port
         self.topic = topic
+        print(f"Debug: Topic set as {self.topic}, type: {type(self.topic)}")
+
 
         with open(certfile, "rb") as cert_file:
             cert_data = cert_file.read()
