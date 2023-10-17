@@ -11,11 +11,11 @@ from cryptography.hazmat.primitives.asymmetric import padding
 class MQTTSecureSubscriber:
     def __init__(self):
         self.client = mqtt.Client()
-        self.client.on_message = self.on_message
+        #self.client.on_message = self.on_message
         self.client.on_connect = self.on_connect
         self.private_key = None
 
-    def setup(self, ca_certs, certfile, keyfile, topic, broker_address, port=8883):
+    def setup(self, ca_certs, certfile, keyfile, topic, broker_address, port=8883, custom_on_message):
         self.client.tls_set(
             ca_certs=ca_certs,
             certfile=certfile,
@@ -26,6 +26,11 @@ class MQTTSecureSubscriber:
         self.broker_address = broker_address
         self.port = port
         self.topic = topic
+
+        if custom_on_message:
+            self.client.on_message = custom_on_message
+        else:
+            self.client.on_message = self.default_on_message
 
         with open(keyfile, "rb") as key_file:
             self.private_key = serialization.load_pem_private_key(
@@ -49,7 +54,7 @@ class MQTTSecureSubscriber:
         else:
             print("Connection failed with error code:", rc)
 
-    def on_message(self, client, userdata, message):
+    def default_on_message(self, client, userdata, message):
         print("Received message on topic:", message.topic)
         decrypted_data = self.decrypt_payload(message.payload)
         self.verify_crc(decrypted_data)
