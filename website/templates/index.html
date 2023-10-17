@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Data</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Live Data</h1>
+        <table id="liveData" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Weight</th>
+                    <th>CRC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be added here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function fetchLiveData() {
+            $.getJSON("/live_data", function(data) {
+                console.log(`Received: ${JSON.stringify(data)}`);
+
+                // Create a new table row
+                var row = $('<tr>');
+
+                // Add Time cell
+                var timeCell = $('<td>').text(data.data.event_time);
+                row.append(timeCell);
+
+                // Add Weight cell
+                var weightCell = $('<td>').text(data.data.weight);
+                row.append(weightCell);
+
+                // Add CRC cell
+                var crcCell = $('<td>').text(data.crc);
+                row.append(crcCell);
+
+                // Append the new row to the table
+                $('#liveData > tbody').prepend(row);
+            });
+        }
+
+        // Fetch data every 1s
+        setInterval(fetchLiveData, 1000);
+    </script>
+</body>
+</html>
+
