@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Table</title>
+</head>
+<body>
+
+  {% for table in tables %}
+    {{titles[loop.index0]}}
+    {{ table|safe }}
+  {% endfor %}
+
+</body>
+</html>
+
