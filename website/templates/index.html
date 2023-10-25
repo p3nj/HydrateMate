@@ -9,48 +9,135 @@
 <body>
     <div class="container mt-5">
         <h1>Live Data</h1>
-        <table id="liveData" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Time</th>
-                    <th>Weight</th>
-                    <th>CRC</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Rows will be added here dynamically -->
-            </tbody>
-        </table>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="live-tab" data-toggle="tab" href="#live">Live</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="aggregated-tab" data-toggle="tab" href="#aggregated">Aggregated</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="live" class="tab-pane fade show active">
+                <table id="liveData" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Weight</th>
+                            <th>CRC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="aggregated" class="tab-pane fade">
+                <table id="aggregatedData" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Average Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>
-        function fetchLiveData() {
-            $.getJSON("/live_data", function(data) {
-                console.log(`Received: ${JSON.stringify(data)}`);
+var lastZero = true;
+var weightSum = 0;
+var weightCount = 0;
+var currentRow = null;
+var firstEntry = true;
 
-                // Create a new table row
-                var row = $('<tr>');
+function fetchLiveData() {
+    $.getJSON("/live_data", function(data) {
+        var weight = data.data.weight;
 
-                // Add Time cell
-                var timeCell = $('<td>').text(data.data.event_time);
-                row.append(timeCell);
+        // Always add to live tab
+        var liveRow = document.createElement('tr');
+        var liveTimeCell = document.createElement('td');
+        liveTimeCell.innerHTML = data.data.event_time;
+        liveRow.appendChild(liveTimeCell);
 
-                // Add Weight cell
-                var weightCell = $('<td>').text(data.data.weight);
-                row.append(weightCell);
+        var liveWeightCell = document.createElement('td');
+        liveWeightCell.innerHTML = weight;
+        liveRow.appendChild(liveWeightCell);
 
-                // Add CRC cell
-                var crcCell = $('<td>').text(data.crc);
-                row.append(crcCell);
+        var liveCrcCell = document.createElement('td');
+        liveCrcCell.innerHTML = data.crc;
+        liveRow.appendChild(liveCrcCell);
 
-                // Append the new row to the table
-                $('#liveData > tbody').prepend(row);
-            });
+        var liveTable = document.getElementById('liveData');
+        liveTable.insertBefore(liveRow, liveTable.childNodes[0]);
+
+        if (weight !== 0) {
+            if (lastZero) {
+                // Create a new average row in the aggregated tab
+                var avgRow = document.createElement('tr');
+                var timeCell = document.createElement('td');
+                timeCell.innerHTML = new Date().toISOString();
+                avgRow.appendChild(timeCell);
+
+                var avgWeightCell = document.createElement('td');
+                avgWeightCell.innerHTML = weight.toFixed(2);
+                avgRow.appendChild(avgWeightCell);
+
+                var table = document.getElementById('aggregatedData');
+                table.insertBefore(avgRow, table.childNodes[0]);
+                
+                // Reset for new average calculation
+                weightSum = 0;
+                weightCount = 0;
+                currentRow = avgRow;
+            }
+            
+            weightSum += weight;
+            weightCount++;
+            var avgWeight = weightSum / weightCount;
+            
+            if (currentRow) {
+                currentRow.cells[1].innerHTML = avgWeight.toFixed(2);
+                currentRow.style.backgroundColor = 'yellow';
+                setTimeout(function() {
+                    currentRow.style.backgroundColor = '';
+                }, 300);
+            }
+            
+            lastZero = false;
+            firstEntry = false;
+        } else if (!lastZero) {
+            // Append weight 0 only once
+            var zeroRow = document.createElement('tr');
+            var zeroTimeCell = document.createElement('td');
+            zeroTimeCell.innerHTML = new Date().toISOString();
+            zeroRow.appendChild(zeroTimeCell);
+
+            var zeroWeightCell = document.createElement('td');
+            zeroWeightCell.innerHTML = "0.00";
+            zeroRow.appendChild(zeroWeightCell);
+
+            var table = document.getElementById('aggregatedData');
+            table.insertBefore(zeroRow, table.childNodes[0]);
+            
+            lastZero = true;
+            currentRow = null;
         }
+    });
+}
 
-        // Fetch data every 1s
-        setInterval(fetchLiveData, 1000);
+// Fetch data every 1s
+setInterval(fetchLiveData, 1000);
+
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 

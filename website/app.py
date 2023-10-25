@@ -46,6 +46,24 @@ def stored_data():
     else:
         return "No data available"
 
+@app.route('/save_aggregated', methods=['POST'])
+def save_aggregated():
+    data = request.json
+    time = data['time']
+    avg_weight = data['avg_weight']
+
+    file_exists = os.path.isfile('./data/aggregated_weights.csv')
+
+    with open('./data/aggregated_weights.csv', mode='a', newline='') as file:
+        writer = csv.writer(file)
+
+        if not file_exists:
+            writer.writerow(['Time', 'Average Weight'])
+
+        writer.writerow([time, avg_weight])
+
+    return jsonify({"status": "success"})
+
 if __name__ == '__main__':
     app.run(debug=False, host="0.0.0.0")
 
