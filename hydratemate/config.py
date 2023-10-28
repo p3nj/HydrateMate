@@ -1,0 +1,2 @@
+TOPIC = "mate/data"
+BROKER_ADDRESS = "3.25.58.119"
