@@ -1,6 +1,6 @@
 import serial
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from mqtt_secure_publiher import MQTTSecureClient 
 
 TOPIC = "mate/data"
@@ -77,8 +77,9 @@ def setup_mqtt():
     return mqtt_client
 
 if __name__ == "__main__":
-    ser = serial.Serial('/dev/rfcomm0', 9600, timeout=1)
+    #ser = serial.Serial('/dev/rfcomm0', 9600, timeout=1)
     #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    ser = serial.Serial('/dev/cu.usbmodem123451', 9600, timeout=1)
     monitor = CupMonitor()
     mqtt_client = setup_mqtt()
 
@@ -95,9 +96,9 @@ if __name__ == "__main__":
             #    cup_duration = 0
 
             data_payload = {
-                "event_time": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z',
+                "event_time": (datetime.utcnow() + timedelta(hours=8)).strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z',
                 "weight": round(weight, 2),
-                "next_hydrate": state['
+                "next_hydrate": monitor.state['next_notification']
             #    "cup_duration": round(cup_duration, 2)
             }
             mqtt_client.publish(data_payload)
