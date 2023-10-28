@@ -69,6 +69,10 @@ function fetchLiveData() {
         liveWeightCell.innerHTML = weight;
         liveRow.appendChild(liveWeightCell);
 
+        //var liveTimerCell = document.createElement('td');
+        //liveTimerCell.innerHTML = data.data.next_hydrate;
+        //liveRow.appendChild(liveTimerCell);
+
         var liveCrcCell = document.createElement('td');
         liveCrcCell.innerHTML = data.crc;
         liveRow.appendChild(liveCrcCell);
@@ -76,7 +80,7 @@ function fetchLiveData() {
         var liveTable = document.getElementById('liveData');
         liveTable.insertBefore(liveRow, liveTable.childNodes[0]);
 
-        if (weight !== 0) {
+        if (weight > 200) {
             if (lastZero) {
                 // Create a new average row in the aggregated tab
                 var avgRow = document.createElement('tr');
